@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="box">
+        <div class="wave -one"></div>
+        <div class="wave -two"></div>
+        <div class="wave -three"></div>
+
+        <!-- <div id="weather"></div> -->
+        <div id="weather">
+            <h3> Weather: (<i class="fa-solid fa-sun" style="color:#FFC312"></i> {%weather%}) </h3>
+        </div>
+
+        <div class="info">
+            <h2 class="location">
+                Location: <i class="fa-solid fa-street-view"></i> {%location%}, {%country%}
+            </h2>
+            <h2 id="date" style="display: inline-block;"></h2><span id="time"> (8:23 PM)</span>
+            <h1 id="temp">Temperature: {%temp%}&deg;C</h1> <!-- unicode -->
+            <h3 id="temp_minmax">Min {%minTemp%}&deg;C | Max {%maxTemp%}&deg;C</h3>
+        </div>
+    </div>
+
+    <script>
+        const currentDate = document.getElementById("date");
+        const weather = document.getElementById("weather");
+        const time = document.getElementById("time");
+        const temperature = "cloudy"
+        // const weatherIcon = document.getElementById("weather");
+        // const weatherStatus = "{%weather%}";
+        // const weatherStatus = "Sunny";
+        // const weatherStatus = "Clouds";
+        // const weatherStatus = "Rainny";
+        // const weatherStatus = "";
+
+        const getCurrentDay = () => {
+            const weeks = ["Sunday","Monday","Tuesday","Wednusday","Thursday","Friday","Saturday"]
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const dateObj = new Date();
+            var week = weeks[dateObj.getDay()];
+            var year = dateObj.getFullYear();
+            var month = months[dateObj.getMonth()+1];
+            var day = dateObj.getDay();
+            return `<b>Date:</b> ${year}| ${month} ${day}| ${week}`;
+        }
+        currentDate.innerHTML = getCurrentDay()
+        setInterval(() => {
+            const dateObj = new Date();
+            var hour1 = dateObj.getHours()>12 ? dateObj.getHours() - 12 : dateObj.getHours() ;
+            var hours = hour1.toString().length == 1 ? "0"+hour1 : hour1;
+            var minutes = dateObj.getMinutes();
+            var second = dateObj.getSeconds();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            time.innerHTML = ` (${hours}:${minutes}:${second} ${ampm})`;
+        }, 1000)
+
+        // if(weatherStatus == "Sunny"){
+        //     weatherIcon.innerHTML = `<h3> Weather: (<i class="fa-solid fa-sun" style="color:#FFC312"></i> {%weather%}) </h3>`
+        // }
+        // else if(weatherStatus == "Clouds"){
+        //     weatherIcon.innerHTML = `<h3> Weather: (<i class="fa-solid fa-clouds" style="color:#2c3e50"></i> {%weather%}) </h3>`
+        // }
+        // else if(weatherStatus == "Rainny"){
+        //     weatherIcon.innerHTML = `<h3> Weather: (<i class="fa-solid fa-cloud-drizzle" style="color:#bdc3c7"></i> {%weather%}) </h3>`
+        // }
+        // else{
+        //     weatherIcon.innerHTML = `<h3> Weather: (<i class="fa-solid fa-cloud-sun-rain "></i> {%weather%}) </h3>`
+        // }
+
+    </script>
+</body>
+</html>
